@@ -1,6 +1,7 @@
 import './css/styles.css';
 import { Notify } from 'notiflix';
 import debounce from 'lodash.debounce';
+import fetchCountries from '../fetchCountries.js';
 
 const refs = {
   input: document.querySelector('#search-box'),
@@ -9,6 +10,8 @@ const refs = {
 };
 
 const DEBOUNCE_DELAY = 300;
+
+fetchCountries();
 
 function createMarcupCard(arr) {
   const markup = arr
