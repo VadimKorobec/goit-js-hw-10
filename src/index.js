@@ -11,7 +11,9 @@ const refs = {
 
 const DEBOUNCE_DELAY = 300;
 
-fetchCountries();
+// fetchCountries();
+
+function fetchCountries(name) {}
 
 function createMarcupCard(arr) {
   const markup = arr
