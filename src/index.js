@@ -13,7 +13,13 @@ const DEBOUNCE_DELAY = 300;
 
 // fetchCountries();
 
-function fetchCountries(name) {}
+function fetchCountries(name) {
+  const BASE_URL = 'https://restcountries.com/v3.1/name/all';
+
+  fetch(
+    `${BASE_URL}?fields=&name.official=${item.name}&capita=${item.capital}l&population=${item.population}&flags.svg=${item.flags.svg}&languages=${languages}`
+  );
+}
 
 function createMarcupCard(arr) {
   const markup = arr
