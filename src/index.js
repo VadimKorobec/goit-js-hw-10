@@ -16,19 +16,10 @@ refs.countruInput.addEventListener(
   debounce(onCauntryInput, DEBOUNCE_DELAY)
 );
 
-const BASE_URL = 'https://restcountries.com/v3.1/name/';
-const fields = 'fields=name,capital,population,flags,languages';
-
-export function fetchCountries(name) {
-  return fetch(`${BASE_URL}${name}?${fields}`)
-    .then(response => response.join())
-    .catch(error => console.log(error));
-}
-
 function onCauntryInput() {
   const name = refs.countruInput.value.trim();
   if (name === '') {
-    return (countryList.innerHTML = ''), (countryInfo.innerHTML = '');
+    return (refs.countryList.innerHTML = ''), (refs.countryInfo.innerHTML = '');
   }
 
   fetchCountries(name)
