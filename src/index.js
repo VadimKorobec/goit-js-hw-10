@@ -1,7 +1,7 @@
 import './css/styles.css';
 import Notiflix from 'notiflix';
 import debounce from 'lodash.debounce';
-import { fetchCountries } from '../fetchCountries.js';
+import { fetchCountries } from './js/fetch-countries';
 
 const DEBOUNCE_DELAY = 300;
 
@@ -16,9 +16,18 @@ refs.countruInput.addEventListener(
   debounce(onCauntryInput, DEBOUNCE_DELAY)
 );
 
+const BASE_URL = 'https://restcountries.com/v3.1/name/';
+const fields = 'fields=name,capital,population,flags,languages';
+
+export function fetchCountries(name) {
+  return fetch(`${BASE_URL}${name}?${fields}`)
+    .then(response => response.join())
+    .catch(error => console.log(error));
+}
+
 function onCauntryInput() {
-  const nameCountry = refs.countruInput.value.trim();
-  if (nameCountry === '') {
+  const name = refs.countruInput.value.trim();
+  if (name === '') {
     return (countryList.innerHTML = ''), (countryInfo.innerHTML = '');
   }
 
@@ -36,11 +45,11 @@ function onCauntryInput() {
           marcupCountryInfo(countries)
         );
       } else if (countries.length >= 10) {
-         alertTooManyMatches();
+        alertTooManyMatches();
       } else {
         refs.countryList.insertAdjacentHTML(
-          'beforeend'
-           marcupCountryList(countries)
+          'beforeend',
+          marcupCountryList(countries)
         );
       }
     })
@@ -51,7 +60,7 @@ function marcupCountryList(countries) {
   const marcup = countries
     .map(({ name, flags }) => {
       return `<li class="country-list__item" >
-    <img class="country-list__flag" src="${flags.svg}" alt="Flag of ${name.official}" width = 30px height = 30px/>
+    <img class="country-list__flag" src="${flags.svg}" alt="Flag of ${name.official}" width = 30px  height = 30px />
     <h2 class="country-list__name">${name.official}</h2>
     <li/>`;
     })
